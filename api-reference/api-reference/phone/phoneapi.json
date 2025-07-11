@@ -1,0 +1,607 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Sell Agent API",
+    "description": "API reference for Phone Module managing voice-based AI agents in Sell Agent",
+    "license": {
+      "name": "MIT"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://server.sellagent.ai/api"
+    }
+  ],
+  "paths": {
+    "/phone": {
+      "get": {
+        "summary": "List All Phone Numbers",
+        "description": "Returns all phone numbers associated with the user's workspace.",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "description": "Your API key for authentication",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "description": "Must be application/json",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json"
+              ]
+            }
+          },
+          {
+            "name": "x-workspace-id",
+            "in": "header",
+            "required": false,
+            "description": "Optional Workspace ID. If not provided, defaults to the user's current workspace.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved all phones",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Phone"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized – Invalid or missing API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "error",
+                  "message": "API key is missing or invalid."
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "error",
+                  "message": "An unexpected server error occurred."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/phone/create": {
+      "post": {
+        "summary": "Create Phone",
+        "description": "Register a new phone number and bind agents",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "description": "Your API key for authentication",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "description": "Must be application/json",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json"
+              ]
+            }
+          },
+          {
+            "name": "x-workspace-id",
+            "in": "header",
+            "required": false,
+            "description": "Optional workspace ID (defaults to user's current workspace)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "phoneNumber",
+                  "terminationUri"
+                ],
+                "properties": {
+                  "phoneNumber": {
+                    "type": "string",
+                    "description": "The phone number to register"
+                  },
+                  "terminationUri": {
+                    "type": "string",
+                    "description": "The SIP termination URI"
+                  },
+                  "nickName": {
+                    "type": "string",
+                    "description": "A custom label for the number"
+                  },
+                  "trunkUsername": {
+                    "type": "string",
+                    "description": "Optional SIP username for the trunk"
+                  },
+                  "trunkPassword": {
+                    "type": "string",
+                    "description": "Optional SIP password for the trunk"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Phone number successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Phone"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request – Invalid input data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "error",
+                  "message": "Invalid request format, please check API reference."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized – Invalid or missing API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "error",
+                  "message": "API key is missing or invalid."
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "error",
+                  "message": "An unexpected server error occurred."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/phone/delete/{id}": {
+      "delete": {
+        "summary": "Delete Phone By ID",
+        "description": "Delete an existing phone number",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "description": "Your API key for authentication",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "description": "Must be application/json",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json"
+              ]
+            }
+          },
+          {
+            "name": "x-workspace-id",
+            "in": "header",
+            "required": false,
+            "description": "Optional workspace ID (defaults to user's current workspace)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the phone to delete",
+            "schema": {
+              "type": "string",
+              "example":"+17245868135"
+
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Phone number successfully deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Phone number deleted successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized – Invalid or missing API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "error",
+                  "message": "API key is missing or invalid."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found – Phone with specified ID not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "error",
+                  "message": "Phone not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "error",
+                  "message": "An unexpected server error occurred."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/phone/update/{id}": {
+      "put": {
+        "summary": "Update Phone",
+        "description": "Update agent bound to a purchased phone number",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "description": "Your API key for authentication",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "description": "Must be application/json",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json"
+              ]
+            }
+          },
+          {
+            "name": "x-workspace-id",
+            "in": "header",
+            "required": false,
+            "description": "Optional workspace ID (defaults to user's current workspace)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the phone to update",
+            "schema": {
+              "type": "string",
+              "example":"+17245868135"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "nickName"
+                ],
+                "properties": {
+                  "nickName": {
+                    "type": "string",
+                    "description": "New nickname for the phone number"
+                  }
+                }
+              },
+              "example": {
+                "nickName": "Updated Production Number"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Phone nickname successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Phone"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request – Missing or invalid nickname",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "error",
+                  "message": "Invalid request format, please check API reference."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized – Invalid or missing API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "error",
+                  "message": "API key is missing or invalid."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found – Phone with specified ID not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "error",
+                  "message": "Phone not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "error",
+                  "message": "An unexpected server error occurred."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Phone": {
+        "type": "object",
+        "required": [
+          "_id",
+          "phoneNumber"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Unique ID of the phone record",
+            "example": "685bb187dc7279fb63ed11d"
+          },
+          "userId": {
+            "type": "string",
+            "description": "ID of the user who owns the phone",
+            "example": "6855d390cadc9740fe720a"
+          },
+          "workspaceId": {
+            "type": "string",
+            "description": "Workspace associated with this phone number",
+            "example": "685846b162e555e53cd3ae"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "The actual phone number",
+            "example": "+17245868135"
+          },
+          "terminationUri": {
+            "type": "string",
+            "description": "SIP termination URI",
+            "example": "sell-agent.pstn.twilio.com"
+          },
+          "nickName": {
+            "type": "string",
+            "description": "Nickname for the phone number",
+            "example": "production"
+          },
+          "outboundTrunk": {
+            "type": "string",
+            "description": "Outbound trunk identifier",
+            "example": "ST_B7t6CbWDG6G"
+          },
+          "inboundTrunk": {
+            "type": "string",
+            "description": "Inbound trunk identifier",
+            "example": "ST_2FKEA6i8392"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date and time when the phone record was created",
+            "example": "2025-06-25T08:21:27.806Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date and time when the phone record was last updated",
+            "example": "2025-06-25T08:34:28.172Z"
+          },
+          "__v": {
+            "type": "integer",
+            "description": "Document version key",
+            "example": 0
+          },
+          "inboundAgentId": {
+            "type": "object",
+            "description": "Inbound agent details",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "ID of the inbound agent",
+                "example": "6855717a08af648abd4a69"
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the inbound agent",
+                "example": "SellAgent Cold Calling Agent"
+              },
+              "type": {
+                "type": "string",
+                "description": "Type of the inbound agent",
+                "example": "Single Prompt"
+              }
+            }
+          },
+          "outboundAgentId": {
+            "type": "object",
+            "description": "Outbound agent details",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "ID of the outbound agent",
+                "example": "6855717a08af648abd4a6964"
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the outbound agent",
+                "example": "SellAgent Cold Calling Agent"
+              },
+              "type": {
+                "type": "string",
+                "description": "Type of the outbound agent",
+                "example": "Single Prompt"
+              }
+            }
+          }
+        }
+      },
+      "Error": {
+        "required": [
+          "status",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "error"
+          },
+          "message": {
+            "type": "string",
+            "example": "An error occurred"
+          }
+        }
+      }
+    }
+  }
+}

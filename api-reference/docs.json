@@ -1,0 +1,117 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Sell Agent",
+  "colors": {
+    "primary": "#0096FF",
+    "light": "#0096FF",
+    "dark": "#0096FF"
+  },
+  "favicon": "/favicon.svg",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": " ",
+            "pages": [
+              "index"
+            ]
+          },
+          {
+            "group": "Get Started",
+            "pages": [
+              "quickstart"
+            ]
+          },
+          {
+            "group": "Deploy",
+            "pages": [
+              "pages/twilio-sip-trunk"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "API Documentation",
+            "pages": [
+              "api-reference/introduction"
+            ]
+          },
+          {
+            "group": "Call",
+            "pages": [
+              "api-reference/call/create-call"
+            ]
+          },
+          {
+            "group": "Agent",
+            "pages": [
+              "api-reference/agent/get-all",
+              "api-reference/agent/create",
+              "api-reference/agent/get",
+              "api-reference/agent/delete",
+              "api-reference/agent/update"
+            ]
+          },
+          {
+            "group": "Phone",
+            "pages": [
+              "api-reference/phone/get-all",
+              "api-reference/phone/create",
+              "api-reference/phone/delete",
+              "api-reference/phone/update"
+            ]
+          }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Pricing",
+          "href": "https://mintlify.com/docs",
+          "icon": "book-open-cover"
+        },
+        {
+          "anchor": "Community",
+          "href": "https://mintlify.com/community",
+          "icon": "slack"
+        },
+        {
+          "anchor": "Blog",
+          "href": "https://mintlify.com/blog",
+          "icon": "newspaper"
+        }
+      ]
+    }
+  },
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Support",
+        "href": "mailto:hi@mintlify.com"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Dashboard",
+      "href": "https://dashboard.mintlify.com"
+    }
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/mintlify",
+      "github": "https://github.com/mintlify",
+      "linkedin": "https://linkedin.com/company/mintlify"
+    }
+  }
+}

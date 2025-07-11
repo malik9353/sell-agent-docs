@@ -1,0 +1,875 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Sell Agent API",
+    "description": "API reference for Agent Module managing voice-based AI agents in Sell Agent",
+    "license": {
+      "name": "MIT"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://server.sellagent.ai/api/agent"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "List All Agents",
+        "description": "Returns all agents from the system that the user has access to.",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "description": "Your API key for authentication",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "description": "Must be application/json",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json"
+              ]
+            }
+          },
+          {
+            "name": "x-workspace-id",
+            "in": "header",
+            "required": false,
+            "description": "Optional Workspace ID. If not provided, defaults to the user's current workspace.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved all agents",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Agent"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized – Invalid or missing API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "error",
+                  "message": "API key is missing or invalid."
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "error",
+                  "message": "An unexpected server error occurred."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/create": {
+      "post": {
+        "summary": "Create Agent",
+        "description": "Creates a new voice AI agent in the system.",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "description": "Your API key for authentication",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "description": "Must be application/json",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json"
+              ]
+            }
+          },
+          {
+            "name": "x-workspace-id",
+            "in": "header",
+            "required": false,
+            "description": "Optional workspace ID (defaults to user's current workspace)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the agent to be created",
+                    "example": "Appointement Setter Agent"
+                  }
+                },
+                "example": {
+                  "name": "Appointement Setter Agent"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Agent created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Agent"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request format, please check API reference",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "status": "error",
+                    "message": "Invalid request format, please check API reference."
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized – API key is missing or invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "status": "error",
+                    "message": "API key is missing or invalid."
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "status": "error",
+                    "message": "An unexpected server error occurred."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get/{id}": {
+      "get": {
+        "summary": "Get Agent By ID",
+        "description": "Retrieve details of a specific agent using its ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Unique id of the agent to be retrieved.",
+            "schema": {
+              "type": "string",
+              "example": "686679f702bfb2054ec3d1f0"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "description": "Your API key for authentication",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "description": "Must be application/json",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json"
+              ]
+            }
+          },
+          {
+            "name": "x-workspace-id",
+            "in": "header",
+            "required": false,
+            "description": "Optional Workspace ID (defaults to user's current workspace)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved an agent.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Agent"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request – Invalid ID or headers",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "status": "error",
+                    "message": "Invalid request format, please check API reference."
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized – API key missing or invalid",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "error",
+                  "message": "API key is missing or invalid."
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "error",
+                  "message": "An unexpected server error occurred."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/delete/{id}": {
+      "delete": {
+        "summary": "Delete Agent by ID",
+        "description": "Deletes an existing agent using its unique ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The unique ID of the agent to delete.",
+            "schema": {
+              "type": "string",
+              "example": "686679f702bfb2054ec3d1f0"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "description": "Your API key for authentication",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "description": "Must be application/json",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json"
+              ]
+            }
+          },
+          {
+            "name": "x-workspace-id",
+            "in": "header",
+            "required": false,
+            "description": "Optional Workspace ID. Defaults to user's current workspace.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Agent deleted successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "message": "Agent deleted successfully.."
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request – Invalid ID or headers",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "status": "error",
+                    "message": "Invalid request format, please check API reference."
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized – API key missing or invalid",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "error",
+                  "message": "API key is missing or invalid."
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "error",
+                  "message": "An unexpected server error occurred."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/update/{id}": {
+      "put": {
+        "summary": "Update Agent by ID",
+        "description": "Updates an existing",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The unique ID of the agent to update.",
+            "schema": {
+              "type": "string",
+              "example": "686679f702bfb2054ec3d1f0"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "description": "Your API key for authentication",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "description": "Must be multipart/form-data",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-workspace-id",
+            "in": "header",
+            "required": false,
+            "description": "Optional Workspace ID. Defaults to user's current workspace.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "script": {
+                    "type": "string"
+                  },
+                  "firstMessage": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "webhookURL": {
+                    "type": "string"
+                  },
+                  "modelType": {
+                    "type": "string"
+                  },
+                  "modelId": {
+                    "type": "string"
+                  },
+                  "voiceId": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "object"
+                  },
+                  "dynamicVariables": {
+                    "type": "object"
+                  },
+                  "silenceThreshold": {
+                    "type": "number"
+                  },
+                  "maxCallDuration": {
+                    "type": "number"
+                  },
+                  "enableRecording": {
+                    "type": "boolean"
+                  },
+                  "enableTranscript": {
+                    "type": "boolean"
+                  },
+                  "pauseBeforeSpeaking": {
+                    "type": "number"
+                  },
+                  "callTransfer": {
+                    "type": "object"
+                  },
+                  "customFunctions": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "backgroundSound": {
+                    "type": "object",
+                    "properties": {
+                      "soundName": {
+                        "type": "string"
+                      },
+                      "volume": {
+                        "type": "number"
+                      }
+                    }
+                  },
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "PDF file to add to agent's knowledge base"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Agent updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Agent"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request format, please check API reference",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "status": "error",
+                    "message": "Invalid request format, please check API reference."
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized – API key is missing or invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "status": "error",
+                    "message": "API key is missing or invalid."
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "status": "error",
+                    "message": "An unexpected server error occurred."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Agent": {
+        "type": "object",
+        "required": [
+          "_id",
+          "name",
+          "type"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Unique ID of the agent",
+            "example": "686679f702bfb2054ec3d1f0"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the agent",
+            "example": "Appointement Setter Agent"
+          },
+          "type": {
+            "type": "string",
+            "description": "Agent type (e.g., Single Prompt, Multi-Step)",
+            "example": "Single Prompt"
+          },
+          "firstMessage": {
+            "type": "string",
+            "description": "Initial message spoken by the agent",
+            "example": "Hello, how can I help you today?"
+          },
+          "modelType": {
+            "type": "string",
+            "description": "Model used by the agent",
+            "example": "deepseek/deepseek-chat-v3-0324"
+          },
+          "backgroundSound": {
+            "type": "object",
+            "properties": {
+              "volume": {
+                "type": "integer",
+                "example": 30
+              }
+            }
+          },
+          "language": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "example": "en"
+              },
+              "label": {
+                "type": "string",
+                "example": "English"
+              },
+              "icon": {
+                "type": "string",
+                "example": "US"
+              }
+            }
+          },
+          "customFunctions": {
+            "type": "array",
+            "items": {},
+            "description": "Custom functions used in the agent"
+          },
+          "voiceMailDetection": {
+            "type": "boolean",
+            "example": false
+          },
+          "silenceThreshold": {
+            "type": "integer",
+            "example": 30
+          },
+          "maxCallDuration": {
+            "type": "integer",
+            "example": 300
+          },
+          "pauseBeforeSpeaking": {
+            "type": "integer",
+            "example": 0
+          },
+          "enableRecording": {
+            "type": "boolean",
+            "example": false
+          },
+          "enableTranscript": {
+            "type": "boolean",
+            "example": false
+          },
+          "providerId": {
+            "type": "string",
+            "example": "105922657181422688240"
+          },
+          "currentWorkspace": {
+            "type": "string",
+            "example": "685846b162e555e53cd3aeaa"
+          },
+          "creditsBalance": {
+            "type": "number",
+            "example": 0
+          },
+          "currentSubscription": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "example": "free"
+              },
+              "stripeCustomerId": {
+                "type": "string",
+                "example": "cus_SarEyKO1v9KQfP"
+              }
+            }
+          },
+          "usageMetrics": {
+            "type": "object",
+            "properties": {
+              "callingMinutesUsed": {
+                "type": "number",
+                "example": 0
+              },
+              "contactsUploaded": {
+                "type": "number",
+                "example": 0
+              },
+              "emailsSent": {
+                "type": "number",
+                "example": 0
+              },
+              "lastResetDate": {
+                "type": "string",
+                "format": "date-time",
+                "example": "2025-06-29T16:37:16.234Z"
+              },
+              "currentPeriodUsage": {
+                "type": "object",
+                "properties": {
+                  "callingMinutes": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "contacts": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "emails": {
+                    "type": "number",
+                    "example": 0
+                  }
+                }
+              }
+            }
+          },
+          "workspaceId": {
+            "type": "string",
+            "example": "685846b162e555e53cd3aeaa"
+          },
+          "modelId": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "example": "68243c0eba21403731844a8c"
+              },
+              "provider": {
+                "type": "string",
+                "example": "OpenRouter"
+              },
+              "label": {
+                "type": "string",
+                "example": "DeepSeek V3"
+              },
+              "type": {
+                "type": "string",
+                "example": "text"
+              },
+              "currency": {
+                "type": "string",
+                "example": "USD"
+              },
+              "icon": {
+                "type": "string",
+                "example": "https://assets-seleagent.s3.us-east-2.amazonaws.com/deepseek.png"
+              },
+              "modelName": {
+                "type": "string",
+                "example": "deepseek/deepseek-chat-v3-0324"
+              },
+              "cost": {
+                "type": "number",
+                "example": 0.01
+              },
+              "latency": {
+                "type": "integer",
+                "example": 400
+              }
+            }
+          },
+          "voiceId": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "example": "6800a813e6052d216985b6eb"
+              },
+              "voiceName": {
+                "type": "string",
+                "example": "Luna"
+              },
+              "accent": {
+                "type": "string",
+                "example": "English (US)"
+              },
+              "gender": {
+                "type": "string",
+                "example": "Female"
+              },
+              "voiceId": {
+                "type": "string",
+                "example": "aura-2-luna-en"
+              },
+              "demoUrl": {
+                "type": "string",
+                "example": "https://d2z4jjzwkquvhw.cloudfront.net/Luna.wav"
+              },
+              "voiceImg": {
+                "type": "string",
+                "example": "https://img.freepik.com/...jpg"
+              },
+              "voiceProvider": {
+                "type": "string",
+                "example": "Deepgram"
+              },
+              "providerId": {
+                "type": "string",
+                "example": "68243c0eba21403731844a8a"
+              },
+              "voiceKey": {
+                "type": "string",
+                "example": "aura-2-luna-en"
+              }
+            }
+          },
+          "knowledgeBase": {
+            "type": "array",
+            "items": {},
+            "description": "Knowledge base entries attached to the agent"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-07-03T12:39:19.318Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-07-04T20:39:32.968Z"
+          },
+          "script": {
+            "type": "string",
+            "example": "Agent Script"
+          }
+        }
+      },
+      "Error": {
+        "required": [
+          "status",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "error"
+          },
+          "message": {
+            "type": "string",
+            "example": "An error occurred"
+          }
+        }
+      }
+    }
+  }
+}
