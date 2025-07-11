@@ -1,35 +1,34 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "Sell Agent",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#0096FF",
+    "light": "#0096FF",
+    "dark": "#0096FF"
   },
   "favicon": "/favicon.svg",
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Documentation",
         "groups": [
           {
-            "group": "Get Started",
+            "group": " ",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              "index"
             ]
           },
           {
-            "group": "Essentials",
+            "group": "Get Started",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
+              "quickstart"
+            ]
+          },
+          {
+            "group": "Deploy",
+            "pages": [
+              "pages/twilio-sip-trunk"
             ]
           }
         ]
@@ -44,12 +43,28 @@
             ]
           },
           {
-            "group": "Endpoint Examples",
+            "group": "Call",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "api-reference/call/create-call"
+            ]
+          },
+          {
+            "group": "Agent",
+            "pages": [
+              "api-reference/agent/get-all",
+              "api-reference/agent/create",
+              "api-reference/agent/get",
+              "api-reference/agent/delete",
+              "api-reference/agent/update"
+            ]
+          },
+          {
+            "group": "Phone",
+            "pages": [
+              "api-reference/phone/get-all",
+              "api-reference/phone/create",
+              "api-reference/phone/delete",
+              "api-reference/phone/update"
             ]
           }
         ]
@@ -58,7 +73,7 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
+          "anchor": "Pricing",
           "href": "https://mintlify.com/docs",
           "icon": "book-open-cover"
         },

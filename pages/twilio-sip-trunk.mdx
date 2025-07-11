@@ -1,0 +1,82 @@
+---
+title: 'Twilio SIP Trunking Setup'
+description: 'Step-by-step guide to connect your Twilio account via SIP trunking'
+sidebarTitle: "Connect Twilio via SIP trunking"
+---
+
+# Twilio SIP Trunking Setup
+
+Connect your existing Twilio phone numbers to Sell Agent using Elastic SIP Trunking for seamless call handling.
+
+<Steps>
+  <Step title="Create Elastic SIP Trunk">
+    1. **Create New Trunk**  
+       - Navigate to Twilio Console → SIP Trunking → Trunks
+       - Click "Create Trunk"
+       - Name it (e.g., "SellAgent-trunk")
+
+    ![Create SIP Trunk](/images/twilio-create-trunk.png)
+
+    2. **Configure Termination (Outbound)**  
+       - Set Termination SIP URI (use regional endpoint if available):
+         ```
+         sip:sellagent@sip.us1.twilio.com  # US region example
+         ```
+       - Whitelist Sell Agent's SIP server or enable credential authentication
+
+    ![Termination Settings](/images/twilio-termination.png)
+    *Termination configuration screen*
+
+    3. **Configure Origination (Inbound)**  
+       - Add Sell Agent's SIP URI:
+         ```
+         sip:your-account.sip.sellagent.ai
+         ```
+       - Set priority to 1
+
+    ![Origination Settings](/images/twilio-origination.png)
+    *Origination SIP URI configuration*
+  </Step>
+
+  <Step title="Move Numbers to SIP Trunk">
+    1. **Assign Phone Numbers**  
+       - Go to Numbers → Manage Numbers
+       - Select numbers to migrate
+       - Assign to your new SIP trunk
+
+    ![Number Assignment](/images/twilio-assign-numbers.png)
+    *Number management interface*
+
+    2. **Verify Number Status**  
+       - Confirm numbers show "Active" status
+       - Check SIP registration
+  </Step>
+
+  <Step title="Import to Sell Agent">
+    1. **Add External Number**  
+       - In Sell Agent, go to Phone Numbers → Add External
+       - Enter Twilio credentials:
+         ```yaml
+         SIP Domain: your-trunk.sip.twilio.com
+         Username: [Twilio auth username]
+         Password: [Twilio auth password]
+         Termination URI: sip:sellagent@sip.us1.twilio.com
+         ```
+
+    ![Sell Agent Import](/images/sellagent-import.png)
+    *Number import interface*
+
+    2. **Test Connection**  
+       - Use built-in test tool
+       - Verify both inbound/outbound calls
+
+    3. **Assign Agent**  
+       - Select which AI agent handles calls
+       - Configure call routing rules
+  </Step>
+</Steps>
+
+## Advanced Configuration
+
+### IP Whitelisting (Alternative to Credentials)
+If using IP-based auth, whitelist these ranges:

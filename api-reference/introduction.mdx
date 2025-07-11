@@ -1,33 +1,39 @@
 ---
 title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+description: '**Sell Agent** API Documentation Overview and Authentication Setup'
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+## 👋 Welcome to the Sell Agent API Documentation
 
-## Welcome
+This API enables seamless integration with your **Voice-Based AI Agents** and **Telephony System**. Whether you're building a custom interface, automating call flows, or managing agent configurations programmatically — this API gives you complete control.
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
+## 🔐 Getting Started with Authentication
+
+To begin using the API, you’ll need an **API Key** for secure access.  
+All endpoints require the `x-api-key` header for authentication.
+
+📽️ **Watch the video below** to learn how to create your Sell Agent API key and get started in minutes.
+
+<iframe
+  width="100%"
+  height="400"
+  src="https://www.loom.com/embed/bb21fd8284114bd2a5d80ceb24987436"
+  frameBorder="0"
+  allowFullScreen
+/>
+
+> After generating your API key, you can use it along with the optional `x-workspace-id` header to interact with:
 >
-  View the OpenAPI specification file
-</Card>
+> - AI Voice Agents  
+> - SIP-enabled Phone Numbers  
+> - Outbound Call Initiation  
+> - Call Log Retrieval & Filtering  
 
-## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+## 🛡️ Authentication Requirements
 
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
-```
+All API requests must include the following headers:
+
+> - x-api-key: YOUR_API_KEY_HERE
+> - Content-Type: application/json
