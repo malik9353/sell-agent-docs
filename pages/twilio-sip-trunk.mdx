@@ -61,3 +61,38 @@ sidebarTitle: "Connect Twilio via SIP trunking"
   </Step>
 </Steps>
 
+
+## Common Issues
+
+ **1. Inbound calls work, but outbound calls do not?**
+
+-  Check your Termination SIP URI ensure there are no spaces in your Termination SIP URI.  Also, make sure you’re using a localized URI appropriate for your region.  
+  👉 Refer to [Twilio’s SIP Region Guide](https://www.twilio.com/docs/sip-trunking#termination-uri) to select the correct one.
+
+-  Make sure you're using the correct username and password from the SIP Credential List.  
+  ⚠️ *Important:* The **username is not the friendly name** shown in the Twilio Console. Double-check you’re using the actual SIP credential username.
+
+       ![Twilio ACL](/images/twilio-acl.png)
+
+
+ **2. How do I enable international calling?**
+
+- In the Twilio Console, search for **"Geo"** to locate the **Voice Geographic Permissions** settings.
+       
+       ![Geo Permissions](/images/geo-permissions.png)
+
+- Under the Product Selector, choose **Elastic SIP Trunking** and then enable the countries you want to allow for outbound dialing.
+
+       ![Twilio Geopermissions](/images/twilio-geo.png)
+
+## 📘 Next Steps
+
+<CardGroup cols={1}>
+  <Card
+    title="Create Twilio Trunk Video Tutorial"
+    icon="phone"
+    href="/pages/twilio-trunk-tutorial"
+  >
+    Step-by-step video guide to set up a Twilio SIP trunk and connect it to **Sell Agent**.
+  </Card>
+ </CardGroup>

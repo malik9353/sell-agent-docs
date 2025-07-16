@@ -1,0 +1,36 @@
+---
+title: "Outbound Calls"
+description: "A Step-by-step guide to making outbound phone calls using **Sell Agent** imported numbers."
+sidebarTitle: "Outbound Calls (make calls)" 
+---
+
+Before you begin, ensure you've already purchased and imported phone numbers from Twilio by following the previous setup guides.
+
+## 🔗 Bind Voice Agents
+
+To enable calling, you **must bind a voice agent to the number**.  
+Without an assigned agent, the number cannot make or receive calls.
+
+- You can assign different agents for **inbound** and **outbound** calls.
+- To disable inbound or outbound:
+  - Leave `inboundAgentId` or `outboundAgentId` unset.
+  - Example: If you only want to make calls but not receive callbacks, leave `inboundAgentId` unset.
+  
+      ![Agent Assigned](/images/agent-assigned.png)
+
+   Once an inbound agent is assigned, inbound calls will begin working automatically.
+
+---
+
+## ☎️ Make Outbound Call
+
+You can initiate outbound calls using the **__[Create Phone Number API](/api-reference/phone/create)__** or all the parameters you can use.
+
+- `phoneId` : The internal ID of the phone number you imported or purchased and registered in **Sell Agent**.
+- `phoneNumber` : The destination number you want to call, in E.164 format (e.g., +12135551234).
+- `agentId` : The ID of the AI agent that should handle the call. This is the agent that will speak on the call.
+
+---
+
+## 🧪 Example: Create Outbound Call
+

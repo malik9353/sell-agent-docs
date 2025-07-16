@@ -28,7 +28,14 @@
           {
             "group": "Deploy",
             "pages": [
-              "pages/twilio-sip-trunk"
+              "pages/twilio-sip-trunk",
+              {
+                "group": "Make & Receive Phone Calls",
+                "pages": [
+                  "pages/outbound-calls",
+                  "pages/inbound-calls"
+                ]
+              }
             ]
           }
         ]
