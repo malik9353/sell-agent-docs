@@ -7,7 +7,7 @@
     "light": "#0096FF",
     "dark": "#0096FF"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/images/sell-agent.png",
   "navigation": {
     "tabs": [
       {
@@ -104,7 +104,7 @@
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "href": "https://sellagent.ai/"
     }
   },
   "footer": {

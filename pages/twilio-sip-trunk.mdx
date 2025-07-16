@@ -1,82 +1,63 @@
 ---
 title: 'Twilio SIP Trunking Setup'
-description: 'Step-by-step guide to connect your Twilio account via SIP trunking'
+description: 'Step-by-step guide to connect your Twilio account via SIP trunking. Connect your existing Twilio phone numbers to Sell Agent using Elastic SIP Trunking for seamless call handling.'
 sidebarTitle: "Connect Twilio via SIP trunking"
 ---
 
-# Twilio SIP Trunking Setup
-
-Connect your existing Twilio phone numbers to Sell Agent using Elastic SIP Trunking for seamless call handling.
+## Steps
 
 <Steps>
   <Step title="Create Elastic SIP Trunk">
-    1. **Create New Trunk**  
-       - Navigate to Twilio Console → SIP Trunking → Trunks
-       - Click "Create Trunk"
-       - Name it (e.g., "SellAgent-trunk")
+    1. Create the trunk, give it a name, and toggle some general settings  
+       - Name it (e.g., "sell agent trunk")
 
     ![Create SIP Trunk](/images/twilio-create-trunk.png)
 
-    2. **Configure Termination (Outbound)**  
-       - Set Termination SIP URI (use regional endpoint if available):
-         ```
-         sip:sellagent@sip.us1.twilio.com  # US region example
-         ```
-       - Whitelist Sell Agent's SIP server or enable credential authentication
-
+    2. **Configure Termination (this is for outbound)**  
+       - the termination SIP URI here is important, we would use it in later steps. You might want to use a localized termination uri that’s near your region. You can expand and view your localized uris in the twilio console.:
+        
     ![Termination Settings](/images/twilio-termination.png)
-    *Termination configuration screen*
+      
+      - For your elastic SIP trunk to accept our outbound request, you need to whitelist IP address or create a auth with username and password.
+            - If you opt for the auth route, you need to specify the username and password in the next step when importing the number to **Sell Agent**.
+    ![auth](/images/auth.jpeg)
+            - Currently **Sell Agent** SIP server does not have a static IP, so if you opt for the IP route, you need to whitelist all the IP addresses in the range like following:
+    ![ACl 1](/images/ACL-2.png)
+    ![ACl 2](/images/ACL-1.png)
 
-    3. **Configure Origination (Inbound)**  
-       - Add Sell Agent's SIP URI:
+
+    3. **Configure Origination (this is for Inbound)**  
+       - Here you will specify **Sell Agent's** SIP server address as the origination SIP URI:
          ```
-         sip:your-account.sip.sellagent.ai
+         sip:2s79j8s14f9.sip.livekit.cloud
          ```
-       - Set priority to 1
 
     ![Origination Settings](/images/twilio-origination.png)
-    *Origination SIP URI configuration*
+    ![Origination](/images/twilio-origination-1.png)
+
   </Step>
 
-  <Step title="Move Numbers to SIP Trunk">
-    1. **Assign Phone Numbers**  
-       - Go to Numbers → Manage Numbers
-       - Select numbers to migrate
-       - Assign to your new SIP trunk
+  <Step title="Move numbers to Elastic SIP Trunking">
+   You’ve created the elastic SIP trunk, now you would need to purchase numbers / move existing numbers to this trunk.
 
     ![Number Assignment](/images/twilio-assign-numbers.png)
-    *Number management interface*
-
-    2. **Verify Number Status**  
-       - Confirm numbers show "Active" status
-       - Check SIP registration
+   
   </Step>
 
   <Step title="Import to Sell Agent">
-    1. **Add External Number**  
-       - In Sell Agent, go to Phone Numbers → Add External
-       - Enter Twilio credentials:
-         ```yaml
-         SIP Domain: your-trunk.sip.twilio.com
-         Username: [Twilio auth username]
-         Password: [Twilio auth password]
-         Termination URI: sip:sellagent@sip.us1.twilio.com
-         ```
+    
+    Now the number is set up with your elastic SIP trunking, you need to import the number to **Sell Agent** so that we will know how to route the call.
 
     ![Sell Agent Import](/images/sellagent-import.png)
-    *Number import interface*
 
-    2. **Test Connection**  
-       - Use built-in test tool
-       - Verify both inbound/outbound calls
+    Here you will supply the termination SIP URI you set up in Step 1. If you have set up auth via credentials, you will need to supply the username and password as well.
+    
+    ![SellAgent URI](/images/sellagent-uri.png)
 
-    3. **Assign Agent**  
-       - Select which AI agent handles calls
-       - Configure call routing rules
+   You can also import a number programmatically using the  
+   **__[Create Phone Number API](/api-reference/phone/create)__**.
+
+   Now the number is imported, you can make and receive calls with this number — it will show up in your dashboard, and you can make phone calls from Dashboard directly. You can also use the  **__[Create Phone Call API](/api-reference/call/create-call)__**. to create calls programmatically. If you wish to **Sell Agent** to stop using this number, you can delete it from the dashboard or via the  **__[Delete Phone Number API](/api-reference/phone/delete)__**.
   </Step>
 </Steps>
 
-## Advanced Configuration
-
-### IP Whitelisting (Alternative to Credentials)
-If using IP-based auth, whitelist these ranges:
