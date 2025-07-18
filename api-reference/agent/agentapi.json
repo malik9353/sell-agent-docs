@@ -632,6 +632,21 @@
               }
             }
           },
+          "dynamicVariables": {
+            "type": "object",
+            "properties": {
+              "first_name": {
+                "type": "integer",
+                "example": "John"
+              }
+            }
+          },
+          "webhookURL": {
+            "type": "string",
+            "description": "Model used by the agent",
+            "example": "Url endpoint"
+          },
+
           "language": {
             "type": "object",
             "properties": {

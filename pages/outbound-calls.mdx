@@ -20,8 +20,6 @@ Without an assigned agent, the number cannot make or receive calls.
 
    Once an inbound agent is assigned, inbound calls will begin working automatically.
 
----
-
 ## ☎️ Make Outbound Call
 
 You can initiate outbound calls using the **__[Create Phone Number API](/api-reference/phone/create)__** or all the parameters you can use.
@@ -30,7 +28,83 @@ You can initiate outbound calls using the **__[Create Phone Number API](/api-ref
 - `phoneNumber` : The destination number you want to call, in E.164 format (e.g., +12135551234).
 - `agentId` : The ID of the AI agent that should handle the call. This is the agent that will speak on the call.
 
----
+<Tabs>
+  <Tab title="Node.js">
+    ```js
+    const options = {
+      method: 'POST',
+      headers: {
+        'x-api-key': '<x-api-key>',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        phoneId: "<string>",
+        phoneNumber: "+14155551234",
+        agentId: "<string>"
+      })
+    };
 
-## 🧪 Example: Create Outbound Call
+    fetch('https://server.sellagent.ai/api/phone/createCall', options)
+      .then(response => response.json())
+      .then(response => console.log(response))
+      .catch(err => console.error(err));
+    ```
+  </Tab>
 
+  <Tab title="Python">
+    ```python
+    import requests
+
+    url = "https://server.sellagent.ai/api/phone/createCall"
+
+    payload = {
+        "phoneId": "<string>",
+        "phoneNumber": "+14155551234",
+        "agentId": "<string>"
+    }
+    headers = {
+        "x-api-key": "<x-api-key>",
+        "Content-Type": "application/json"
+    }
+
+    response = requests.post(url, json=payload, headers=headers)
+
+    print(response.text)
+    ```
+  </Tab>
+</Tabs>
+
+## 🧠 Personalize Agent Speech with Dynamic Variables (Inbound & Outbound)
+
+You can personalize both **outbound** and **inbound** calls by using the `dynamicVariables` field. These variables allow your AI agent to insert custom data—like the contact’s first name—directly into its spoken script.
+
+### ✨ How it works
+
+If your agent script includes this placeholder:
+
+      ![Agent Script](/images/agent-script.png)
+
+```json
+"dynamicVariables": {
+  "first_name": "John"
+}
+```
+## 🔄 Add Webhook for Post-call Events
+
+You can optionally set a `webhookURL` in your agent configuration. This webhook is triggered **after each call ends**, sending the full call transcript and other metadata to your server.
+
+### 🛠️ Option 1: Programmatically
+
+Set the webhook when creating or updating the agent:
+
+```json
+"webhookURL": "https://example.com/webhook"
+```
+
+### ⚙️ Option 2: Through Agent Settings UI
+You can also configure the webhook directly in the dashboard under Agent Settings:
+
+      ![Agent Webhook](/images/agent-webhook.png)
+
+Once configured, Sell Agent will send a POST request to your webhook after every inbound or outbound call, including transcript, duration, result, and more.
+To see the full list of available agent parameters, check the **__[Update Agent API](/api-reference/agent/update)__**.
