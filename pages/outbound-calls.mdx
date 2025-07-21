@@ -74,21 +74,7 @@ You can initiate outbound calls using the **__[Create Phone Number API](/api-ref
   </Tab>
 </Tabs>
 
-## 🧠 Personalize Agent Speech with Dynamic Variables (Inbound & Outbound)
 
-You can personalize both **outbound** and **inbound** calls by using the `dynamicVariables` field. These variables allow your AI agent to insert custom data—like the contact’s first name—directly into its spoken script.
-
-### ✨ How it works
-
-If your agent script includes this placeholder:
-
-      ![Agent Script](/images/agent-script.png)
-
-```json
-"dynamicVariables": {
-  "first_name": "John"
-}
-```
 ## 🔄 Add Webhook for Post-call Events
 
 You can optionally set a `webhookURL` in your agent configuration. This webhook is triggered **after each call ends**, sending the full call transcript and other metadata to your server.

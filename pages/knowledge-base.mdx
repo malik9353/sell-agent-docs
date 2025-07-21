@@ -1,0 +1,19 @@
+---
+title: "Knowledge Base"
+---
+
+## Overview
+Knowledge base are a collection of sources of information that your agent can access to retrieve relevant information during the call, that can provide additional context to the conversation. It can greatly improve the quality of the responses and the overall experience, especially in cases where there are a lot of information available (too long for putting in prompt), but having the information is essential for the agent to respond correctly. This feature quite useful for use cases like support, helpdesk, FAQ, etc.
+
+- Documents (supported formats: .pdf)
+
+
+## How it works
+
+You can upload the knowledge bases in your selected agent. When a knowledge base is linked to an agent, the agent will always try to retrieve information from the knowledge base before responding. There’s no need to change your prompt for it to trigger, as it will be done automatically, for every response generation.
+
+During the uploading of knowledge bases, it will chunk the source, embed them and store into a vector database.
+
+During the call, when the agent is about to respond, it will use the transcript so far (prompt is not included) to find the most relevant chunks from the knowledge base, and feed them to the LLM as context.
+
+      ![Agent Knowledge Base](/images/agent-knowledge.png)

@@ -1,0 +1,49 @@
+---
+title: "Dynamic Variables"
+description: "Learn how to personalize your agent’s responses using dynamic variables."
+---
+
+
+## Overview
+Dynamic variables are a special syntax that allow you to inject data into various parts of the agents for specific call.
+
+They allow you to personalize your agent’s responses while keeping the core conversation flow intact. They’re perfect for customizing greetings, referencing specific information, or adapting responses based on context.
+
+## Where to use them?
+- prompt
+- begin message
+- transfer call function
+- custom functions
+
+## Test your dynamic variables
+Before deploying, test your dynamic variables using the web interface
+      ![Agent Dynamic Variables](/images/dynamic-variables.png)
+
+
+## 🧠 Personalize Agent Speech with Dynamic Variables (Inbound & Outbound)
+
+You can personalize both **outbound** and **inbound** calls by using the `dynamicVariables` field. These variables allow your AI agent to insert custom data—like the contact’s first name—directly into its spoken script.
+
+### ✨ How it works
+
+If your agent script includes this placeholder:
+
+      ![Agent Script](/images/agent-script.png)
+
+```json
+"dynamicVariables": {
+  "first_name": "John"
+}
+```
+
+## Edge Cases
+When a dynamic variable is not assigned a value (not passed in at beginning, and not extracted from the call), it will remain unchanged in the output. For example:
+
+- Original prompt: `"Hello {{first_name}}, how can I help you today?"`
+- Output when first_name is not set: `"Hello {{first_name}}, how can I help you today?"`
+
+This means missing variables will be visible in their raw form (`{{variable_name}}`) rather than being replaced with an empty string or causing an error.
+
+## How to check if the dynamic variable is not set?
+- if you are using equations in conversation flow, you can use the following equation to check: `{{first_name}} contains {{`. This would evaluate to true if it’s not set.
+- if you want to check if the dynamic variable is not set in the prompt, you can use the following prompt: `{{first_name}} is not set (have curly braces around it)`.

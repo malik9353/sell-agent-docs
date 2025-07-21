@@ -29,11 +29,24 @@
             "group": "Deploy",
             "pages": [
               "pages/twilio-sip-trunk",
+              "pages/create-phone",
               {
                 "group": "Make & Receive Phone Calls",
                 "pages": [
                   "pages/outbound-calls",
                   "pages/inbound-calls"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Build",
+            "pages": [
+              {
+                "group": "Provide Context to the agent",
+                "pages": [
+                  "pages/knowledge-base",
+                  "pages/dynamic-variables"
                 ]
               }
             ]

@@ -1,0 +1,53 @@
+---
+title: "Create Phone Number"
+description: "A step-by-step guide to importing and configuring a phone number in Sell Agent after setting up a Twilio SIP Trunk."
+---
+
+This guide walks you through how to import a phone number after creating a Twilio SIP Trunk and start using it inside **Sell Agent**.
+
+<Note>
+Before importing a phone number, make sure you've created an Elastic SIP Trunk.  
+If not, we’ve got you covered 👉 Refer to [Create SIP Trunk](/pages/twilio-sip-trunk) to create the correct one.
+</Note>
+
+---
+
+## 🖥️ From the Dashboard
+
+1. Navigate to the **Phone** tab in the sidebar.
+2. Click on the **Add** button.
+3. Enter the following details:
+   - **Termination URI**
+   - **Phone Number**
+   - **SIP Credentials (Username & Password)**
+
+    ![SellAgent URI](/images/sellagent-uri.png)
+
+Once the phone number is imported, it will be ready to **receive inbound calls** — as long as you’ve assigned an **inbound agent**. Give it a try by dialing the number!
+
+---
+
+## ⚙️ From the API
+
+You can also create a phone number programmatically using the **[Create Phone Number API](/api-reference/phone/create)**.
+
+Here are some key points:
+
+- You can assign **inbound** and/or **outbound** agents to the number.
+- If you don’t want the number to receive calls (e.g., outbound-only campaigns), you can leave `inboundAgentId` unset.
+
+ **🛠️ Sample Payload**
+
+```json
+{
+  "phoneNumber": "+14155550123",
+  "terminationUri": "sip:your-trunk.pstn.twilio.com",
+  "username": "your_sip_username",
+  "password": "your_sip_password",
+  "inboundAgentId": null,
+  "outboundAgentId": {
+    "name": "SellAgent Cold Calling Agent",
+    "type": "Single Prompt",
+    "_id": "6855717a08af648abd473663"
+  }
+}
