@@ -1,0 +1,84 @@
+---
+title: Import Contacts
+description: "Learn how to add Bulk Contacts into **Sell Agent**"
+---
+
+# 📥 Import Bulk Contacts into Sell Agent
+
+In **Sell Agent**, you can easily import or export contact data directly from the **Contacts** tab. This helps you manage leads in bulk.
+
+<Steps>
+  <Step title="Go to the Contacts Tab">
+    1. From the left-hand menu, click on **Contacts**.
+    2. This will open your contact list view inside **Sell Agent**.
+
+    ![Contacts Tab Screenshot](/images/contacts-tab.png)
+  </Step>
+
+  <Step title="Click the Actions Button">
+    1. In the top right corner, click on the **Action** button.
+    2. A dropdown will appear with two options:  
+        - **Import Contacts**  
+        - **Export Contacts**
+
+    ![Action Dropdown Screenshot](/images/action-button.png)
+  </Step>
+
+  <Step title="Import Contacts">
+    1. Click on **Import Contacts** from the dropdown. You'll now see three options:
+       - **Contacts**
+       - **Deals**
+       - **Companies**  
+       Select the type of data you want to import and click next.
+       
+    ![Import Contacts Screenshot](/images/import-contact1.png)
+
+    2. Click on the **Choose File** button and select the `.csv` file you want to import.
+        ![Upload File Screenshot](/images/import-contact2.png)
+
+    3. **Sell Agent** will automatically map the fields based on the headers in your CSV (e.g., **Name**, **Email**, **Phone**).  
+       If any header isn’t recognized, you’ll see a warning, and you can manually map it or create a custom field.
+
+       ![Mapped Fields Screenshot](/images/import-contact3.png)
+
+       If a column header does not match any existing field, you can create your own custom property.
+
+       To create a custom property:
+       - Go to **Settings** on the top right conrner.  
+       - Click on **CRM Properties**.  
+       - Click on **Add Property** and name your custom field.  
+       
+       ![Add Custom Property Screenshot](/images/import-custom-property.png)
+       ![Add Property Button Screenshot](/images/import-custom-property-button.png)
+
+
+    4. Once selected, the system will process the file and add the contacts to your dashboard.
+
+  </Step>
+
+  <Step title="Export Contacts (Optional)">
+    1. Click on **Export Contacts** if you want to download your current contacts.
+    2. The system will generate a `.csv` file including all the contacts you currently have in **Sell Agent**.
+
+    ![Export Contacts Screenshot](/images/export-csv.png)
+  </Step>
+</Steps>
+
+---
+
+## ✅ CSV Format Example
+
+Make sure your CSV file follows this format before importing:
+
+| Name         | Phone Number | Email               | Region     |
+|--------------|--------------|---------------------|------------|
+| John Smith   | +1234567890  | john@example.com    | California |
+| Jane Doe     | +1987654321  | jane@example.com    | New York   |
+
+> 📎 Need a ready-to-use template?  
+[Download Sample CSV](/files/sample-contacts.csv)
+
+---
+
+Once uploaded, your contacts will appear in the **Contacts** list, ready for follow-ups, messaging, or call assignments.
+

@@ -50,6 +50,19 @@
                 ]
               }
             ]
+          },
+          {
+            "group": "Meeting Milo (Your AI Assistant)",
+            "pages": [
+              "pages/ai-assistant",
+              "pages/mcp-server"
+            ]
+          },
+          {
+            "group": "Sell Agent CRM",
+            "pages": [
+              "pages/importing-contacts"
+            ]
           }
         ]
       },
