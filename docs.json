@@ -7,7 +7,7 @@
     "light": "#0096FF",
     "dark": "#0096FF"
   },
-  "favicon": "/images/sell-agent.png",
+  "favicon": "/logo/favIcon.svg",
   "navigation": {
     "tabs": [
       {
@@ -124,8 +124,8 @@
     }
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/sellAgent.png",
+    "dark": "/logo/sellAgent.png"
   },
   "navbar": {
     "links": [
