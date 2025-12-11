@@ -63,6 +63,12 @@
             "pages": [
               "pages/importing-contacts"
             ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "pages/twilio-integration"
+            ]
           }
         ]
       },

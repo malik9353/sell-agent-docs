@@ -1,0 +1,98 @@
+---
+title: 'Twilio Integration'
+description: 'Learn how to find your Twilio credentials (Account SID, Auth Token, and Phone Number) to connect with Sell Agent.'
+sidebarTitle: "Twilio"
+---
+
+## Overview
+
+To integrate Twilio with Sell Agent, you'll need three key credentials from your Twilio account:
+
+- **Account SID** - Your unique Twilio account identifier
+- **Auth Token** - Your secret authentication token
+- **Twilio Phone Number** - The phone number you'll use for calls
+
+## Finding Your Twilio Credentials
+
+<Steps>
+  <Step title="Log into Twilio Console">
+    Go to [Twilio Console](https://console.twilio.com/) and sign in with your Twilio account credentials.
+
+    If you don't have an account, you can [sign up for a free Twilio account](https://www.twilio.com/try-twilio).
+  </Step>
+
+  <Step title="Locate Account SID and Auth Token">
+    Once logged in, you'll land on the **Account Dashboard**. Your credentials are displayed on this main page:
+
+    - **Account SID**: Found at the top of the dashboard, labeled "Account SID". It starts with `AC` followed by a string of characters.
+    - **Auth Token**: Located right below the Account SID. Click the **"Show"** button (or eye icon) to reveal your Auth Token.
+
+    <Warning>
+      **Keep your Auth Token secret!** Never share it publicly or commit it to version control. Treat it like a password.
+    </Warning>
+  </Step>
+
+  <Step title="Get Your Twilio Phone Number">
+    To find your Twilio phone numbers:
+
+    1. In the left sidebar, navigate to **Phone Numbers** → **Manage** → **Active Numbers**
+    2. You'll see a list of all phone numbers associated with your account
+    3. Copy the phone number you want to use with Sell Agent (in E.164 format, e.g., `+15551234567`)
+
+    <Info>
+      If you don't have a phone number yet, click **"Buy a Number"** to purchase one from Twilio.
+    </Info>
+  </Step>
+</Steps>
+
+## Credential Reference
+
+| Credential | Format | Example | Where to Find |
+|------------|--------|---------|---------------|
+| Account SID | Starts with `AC` | `ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxx` | Dashboard main page |
+| Auth Token | 32-character string | `xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx` | Dashboard main page (click "Show") |
+| Phone Number | E.164 format | `+15551234567` | Phone Numbers → Active Numbers |
+
+## Using Credentials in Sell Agent
+
+Once you have your credentials, you can use them to connect Twilio with Sell Agent:
+
+1. Navigate to your Sell Agent dashboard
+2. Go to the integration or phone setup section
+3. Enter your **Account SID**, **Auth Token**, and **Phone Number**
+4. Save the configuration
+
+<Note>
+  For SIP Trunking setup (recommended for production), refer to our [Twilio SIP Trunking Guide](/pages/twilio-sip-trunk).
+</Note>
+
+## Troubleshooting
+
+**Authentication Failed?**
+- Double-check that you copied the Account SID and Auth Token correctly (no extra spaces)
+- Ensure you're using the Auth Token from the correct Twilio project/account
+- Verify your Twilio account is active and not suspended
+
+**Phone Number Not Working?**
+- Confirm the phone number is in E.164 format (includes country code with `+`)
+- Ensure the number has voice capabilities enabled
+- Check that the number is not assigned to another service
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Twilio SIP Trunking"
+    icon="server"
+    href="/pages/twilio-sip-trunk"
+  >
+    Set up Elastic SIP Trunking for advanced call routing.
+  </Card>
+  <Card
+    title="Create Phone Number"
+    icon="phone-plus"
+    href="/pages/create-phone"
+  >
+    Learn how to add phone numbers to Sell Agent.
+  </Card>
+</CardGroup>
